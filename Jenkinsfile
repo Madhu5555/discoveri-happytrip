@@ -26,6 +26,7 @@ pipeline {
 		
 		stage('Mail'){
 			steps{
+				//mail bcc: '', body: 'Hello All', cc: '', from: '', replyTo: '', subject: 'DEPLOY BUILD', to: 'moniphukan6@gmail.com'
 				mail bcc: '', body: 'Hello All', cc: '', from: '', replyTo: '', subject: 'DEPLOY BUILD', to: 'moniphukan6@gmail.com'
 			}
 		}
