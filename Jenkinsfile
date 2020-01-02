@@ -23,6 +23,13 @@ pipeline {
 				archive archiveArtifacts '**/*.war'
 				}
 		}
+		
+		stage{
+			steps{
+				mail bcc: '', body: 'Hello All', cc: '', from: '', replyTo: '', subject: 'DEPLOY BUILD', to: 'moniphukan6@gmail.com'
+			}
+		}
+		
 		stage('Deploy') {
 			steps{
 				echo "Deploying"
