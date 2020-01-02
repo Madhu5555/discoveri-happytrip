@@ -18,6 +18,11 @@ pipeline {
 
 			}
 		}
+		stage('Archive'){
+			steps{
+				archive archiveArtifacts '**/*.war'
+				}
+		}
 		stage('Deploy') {
 			steps{
 				echo "Deploying"
