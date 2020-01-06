@@ -1,5 +1,9 @@
 pipeline {
 	agent any
+	parameters
+	{
+		booleanParam(name: 'Release', defaultValue: false, description: 'Will Push code to the Server')
+	}
 	stages {
 		stage('Source') { 
 			steps {
@@ -32,6 +36,10 @@ pipeline {
 		}
 		
 		stage('Deploy') {
+			when{
+				//when the release parmeter is true only then the release will be given
+				expression {params.Release == true}
+			}
 			steps{
 				echo "Deploying"
 				//deploy adapters: [tomcat7(credentialsId: '98e9cbd9-106c-4efa-8238-9888f9bc8fc3', path: '', url: 'http://localhost:8085')], contextPath: 'happytrip', war: '**/*.war'
