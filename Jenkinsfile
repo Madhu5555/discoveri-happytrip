@@ -25,7 +25,7 @@ pipeline {
 		stage('Archive'){
 			steps{
 				archiveArtifacts '**/*.war'
-				}
+			}
 		}
 		
 		stage('Mail'){
@@ -34,7 +34,16 @@ pipeline {
 				mail bcc: '', body: 'Hello All', cc: '', from: '', replyTo: '', subject: 'DEPLOY BUILD', to: 'moniphukan6@gmail.com'
 			}
 		}
-		
+		stage('Approval'){
+			when{
+				expression {params.Release == true}
+			}
+			steps{
+				script {
+					input message: 'Approve Deploy?', ok: 'Yes', submitter: 'PME'
+				} 
+  			}
+		}
 		stage('Deploy') {
 			when{
 				//when the release parmeter is true only then the release will be given
