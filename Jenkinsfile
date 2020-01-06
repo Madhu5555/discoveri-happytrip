@@ -3,6 +3,7 @@ pipeline {
 	parameters
 	{
 		booleanParam(name: 'Release', defaultValue: false, description: 'Will Push code to the Server')
+		booleanParam(name: 'SonarQube', defaultValue: false, description: 'Code Analysis')
 	}
 	stages {
 		stage('Source') { 
@@ -21,6 +22,19 @@ pipeline {
 				powershell 'mvn clean package'
 
 			}
+		}
+		Stage('SonarQube'){
+			when{
+				//SonarCube will run only when the below condition will be true
+				expression {params.SonarQube == true}
+			}
+			steps {
+					echo 'Executing sonar Analysis'
+ 					withSonarQubeEnv('sonar server') {
+ 					sh 'mvn sonar:sonar'
+ 					}
+ 				
+ 			}
 		}
 		stage('Archive'){
 			steps{
