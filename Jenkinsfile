@@ -23,7 +23,7 @@ pipeline {
 
 			}
 		}
-		Stage('SonarQube'){
+		stage('SonarQube'){
 			when{
 				//SonarCube will run only when the below condition will be true
 				expression {params.SonarQube == true}
